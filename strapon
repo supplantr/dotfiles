@@ -1,0 +1,64 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use Cwd;
+use File::Basename;
+use File::Find;
+use File::Path qw(remove_tree);
+
+my $work_dir = cwd();
+my $home_dir = Cwd::realpath('..');
+my $self = basename($0);
+
+sub go_deep {
+    my $rel_path = $File::Find::name;
+    my $dir_path = "$home_dir/.$rel_path";
+    if (-d $_) {
+        my @dir = split '-', $_;
+        # symlink dirs ending in -sym, removing -sym from symlink name
+        # note: doesn't operate on top-level dirs
+        if ($dir[-1] eq 'sym') {
+            my $new_path = dirname($dir_path);
+            pop(@dir);
+            my $new_base = join('-', @dir);
+            &link("$work_dir/$rel_path", "$new_path/$new_base");
+            # go no deeper in current dir
+            $File::Find::prune = 1;
+        }
+        elsif (! -d $dir_path) {
+            &rm_if($dir_path);
+            mkdir $dir_path or die "could not make $dir_path: $!\n";
+        }
+    }
+    else {
+        &link("$work_dir/$rel_path", $dir_path);
+    }
+}
+
+sub link {
+    my ($old, $new) = @_;
+    &rm_if($new);
+    symlink $old, $new or die "could not symlink $old to $new: $!\n";
+}
+
+sub rm_if {
+    my $file = $_[0];
+    my $err = "could not remove conflicting $file: $!\n";
+    if (-f $file || -l $file) {
+        unlink $file or die $err;
+    }
+    elsif (-d $file) {
+        remove_tree($file) or die $err;
+    }
+}
+
+opendir DIR, $work_dir or die "could not open $work_dir: $!\n";
+for my $file (readdir DIR) {
+    # note: only ignores .files in top-level dir
+    next if ($file =~ /($self|^\.|README.md)/);
+    -d $file
+        ? find(\&go_deep, $file)
+        : &link("$work_dir/$file", "$home_dir/.$file");
+}
+closedir DIR;

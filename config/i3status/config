@@ -1,0 +1,47 @@
+general {
+    output_format = "i3bar"
+    interval = 5
+    colors = true
+    color_good = "#8C9440"
+    color_degraded = "#de935f"
+    color_bad = "#A54242"
+    color_separator = "#373b41"
+}
+
+order += "load"
+order += "cpu_usage"
+order += "cpu_temperature 0"
+order += "wireless wlan0"
+order += "ethernet eth0"
+order += "battery 0"
+order += "time"
+
+load {
+    format = "%1min"
+}
+
+cpu_usage {
+    format = "%usage"
+}
+
+cpu_temperature 0 {
+    format = "%degrees°C"
+}
+
+wireless wlan0 {
+    format_up = "W: (%quality at %essid) %ip"
+    format_down = ""
+}
+
+ethernet eth0 {
+    format_up = "E: %ip"
+    format_down = ""
+}
+
+battery 0 {
+    format = "%status %percentage %remaining"
+}
+
+time {
+    format = "%m-%d/%a %I:%M"
+}

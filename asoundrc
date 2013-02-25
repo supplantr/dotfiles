@@ -1,0 +1,67 @@
+defaults.pcm.rate_converter "samplerate_best"
+
+ctl.equal {
+  type equal
+}
+
+pcm.plugequal {
+  type equal
+  # Modify the line below if you don't
+  # want to use sound card 0.
+  #slave.pcm "plughw:0,0"
+  # or if you want to use with multiple applications output to dmix
+  slave.pcm "plug:dmix"
+}
+
+#pcm.equal {
+  # Or if you want the equalizer to be your
+  # default soundcard uncomment the following
+  # line and comment the above line.
+pcm.!default {
+  type plug
+  slave.pcm plugequal
+}
+
+# .asoundrc to use skype at the same time as other audio apps
+#
+# https://bugtrack.alsa-project.org/alsa-bug/view.php?id=1228
+# https://bugtrack.alsa-project.org/alsa-bug/view.php?id=1224
+
+pcm.skype {
+   type asym
+   playback.pcm "skypeout"
+   capture.pcm "skypein"
+}
+
+pcm.skypein {
+   type route
+   slave {
+      pcm "skypedsnoop"
+      format S16_LE
+   }
+   ttable {
+      0 {0 0.5}
+      1 {0 0.5}
+   }
+}
+
+pcm.skypeout {
+   type plug
+   slave {
+      pcm "dmix"
+   }
+}
+
+pcm.skypedsnoop {
+   type dsnoop
+   ipc_key 1133
+   slave {
+      pcm "hw:0,0"
+      period_size 256
+      periods 16
+      buffer_size 16384
+   }
+   bindings {
+      0 0
+   }
+}
