@@ -11,6 +11,7 @@ general {
 order += "load"
 order += "cpu_usage"
 order += "cpu_temperature 0"
+order += "volume master"
 order += "wireless wlan0"
 order += "ethernet eth0"
 order += "battery 0"
@@ -28,13 +29,20 @@ cpu_temperature 0 {
     format = "%degrees°C"
 }
 
+volume master {
+    format = "v:%volume"
+    device = "default"
+    mixer = "Master"
+    mixer_idx = 0
+}
+
 wireless wlan0 {
-    format_up = "W: (%quality at %essid) %ip"
+    format_up = "w:%ip (%quality at %essid)"
     format_down = ""
 }
 
 ethernet eth0 {
-    format_up = "E: %ip"
+    format_up = "e:%ip"
     format_down = ""
 }
 
