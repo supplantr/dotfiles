@@ -12,7 +12,6 @@ xsetroot -cursor_name left_ptr
 [[ -s ~/.wallpaper ]] && . ~/.wallpaper && hsetroot -fill "$WALLPAPER"
 
 urxvtd -q -f -o &
-compton --vsync opengl --dbe --sw-opti -b &
 xflux -z 32608 &
 
-exec i3
+exec i3 --shmlog-size 0
