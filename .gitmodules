@@ -1,6 +1,7 @@
 [submodule "vim/bundle/vundle-sym"]
-	path = vim/bundle/vundle-sym
-	url = git://github.com/gmarik/vundle.git
+    path = vim/bundle/vundle-sym
+    url = git://github.com/gmarik/vundle.git
+    ignore = dirty
 [submodule "zsh/zsh-syntax-highlighting-sym"]
-	path = zsh/zsh-syntax-highlighting-sym
-	url = git://github.com/zsh-users/zsh-syntax-highlighting.git
+    path = zsh/zsh-syntax-highlighting-sym
+    url = git://github.com/zsh-users/zsh-syntax-highlighting.git
