@@ -1,7 +1,7 @@
 set nocompatible
 
 filetype off
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
@@ -9,12 +9,14 @@ Bundle 'w0ng/vim-hybrid'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdcommenter'
-Bundle 'Lokaltog/vim-powerline'
+Bundle 'Lokaltog/powerline'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'tpope/vim-surround'
 Bundle 'majutsushi/tagbar'
 
 filetype plugin indent on
+
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
 " ---------------
 " Files
