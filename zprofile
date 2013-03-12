@@ -1,4 +1,4 @@
-export PATH="$HOME/bin:$HOME/.luarocks/bin:$HOME/.cabal/bin:$PATH"
+export PATH="$HOME/.bin:$HOME/.luarocks/bin:$HOME/.cabal/bin:$PATH"
 
 [[ -s "$HOME/.dircolors" ]] && eval "$(dircolors $HOME/.dircolors)"
 

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+later -q -t "$(xsel -b)" "$(dmenu -p memo: <&-)"
