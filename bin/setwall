@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [[ -z "$@" ]]; then
+    echo 'usage: setwall WALLPAPER'
+    exit 1
+fi
+
+if [[ -f "$1" ]]; then
+    hsetroot -fill "$1"
+    echo "WALLPAPER=$1" > "$HOME/.wallpaper"
+else
+    echo "'$1' is not a valid file"
+    exit 2
+fi
