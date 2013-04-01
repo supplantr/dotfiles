@@ -5,6 +5,5 @@ alias open='xdg-open'
 alias extract='aunpack'
 alias suspend-usb='sudo suspend-usb-device'
 
-alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
-alias update-fonts='fc-cache -fv'
+alias update-fonts='sudo fc-cache -fv'
 alias ssh='eval "$(keychain --eval --agents ssh -Q --quiet ~/.ssh/id_rsa)" && ssh'
