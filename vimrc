@@ -9,14 +9,12 @@ Bundle 'w0ng/vim-hybrid'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'scrooloose/nerdcommenter'
-Bundle 'Lokaltog/powerline'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'tpope/vim-surround'
 Bundle 'majutsushi/tagbar'
+Bundle 'baskerville/vim-sxhkdrc'
 
 filetype plugin indent on
-
-set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
 " ---------------
 " Files
@@ -31,7 +29,7 @@ set directory=~/.vim/tmp
 " Color
 " ---------------
 set background=dark
-let g:hybrid_use_Xresources=1
+let g:hybrid_use_Xresources = 1
 colorscheme hybrid
 
 " ---------------
@@ -67,7 +65,6 @@ set wildmenu
 set hidden
 set history=768
 set clipboard+=unnamedplus
-"set clipboard+=unnamed
 set timeoutlen=400
 set cf
 
