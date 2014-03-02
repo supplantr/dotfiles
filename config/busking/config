@@ -1,0 +1,11 @@
+@^(https?://|www\.)      = $BROWSER
+@^magnet:                = transmission-qt
+@^steam:                 = steam
+image/                   = sxiv
+video/                   = mplayer
+audio/                   = mpv?:st
+text/html                = $BROWSER
+text/                    = $EDITOR?:st
+application/pdf          = zathura
+inode/directory          = ranger?:st
+application/x-bittorrent = transmission-qt
