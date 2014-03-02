@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 if [[ -f "$1" ]]; then
-    FILE="$1"
+	FILE="$1"
 else
-    FILE="$HOME/.later"
+	FILE="$HOME/.later"
 fi
 
 later -q -O "$(dmenu -l 30 < $FILE)"

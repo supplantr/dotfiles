@@ -1,0 +1,22 @@
+#!/usr/bin/bash
+
+if [[ -z $@ ]]; then
+	echo 'usage: dkms-clean [kernel]'
+	exit 1
+fi
+
+if [[ $EUID -ne 0 ]]; then
+	echo 'must be run with root privileges'
+	exit 1
+fi
+
+mods=($(dkms status | awk -F ', ' -v k="$1" '$0 ~ k {print $1"/"$2}'))
+
+for i in ${mods[@]}; do
+	dkms remove $i -k $1
+done
+
+dir="/usr/lib/modules/$1"
+[[ -d $dir ]] && rm -r $dir || echo "$dir doesn't exist"
+
+echo "$1 cleaned"

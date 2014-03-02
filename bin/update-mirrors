@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
-ml='/etc/pacman.d/mirrorlist'
-cp "$ml"{,.backup} && reflector -l 5 --sort rate --save "$ml" && cat "$ml"
+ml=/etc/pacman.d/mirrorlist
+cp $ml{,.backup} && reflector -l 5 --sort rate --save $ml && cat $ml

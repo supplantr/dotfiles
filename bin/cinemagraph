@@ -1,14 +1,14 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 if [[ "$#" -lt 3 ]]; then
-    echo 'usage: cinemagraph FILE START_TIME REL_END_TIME [OUT_DIR]'
-    exit 1
+	echo 'usage: cinemagraph FILE START_TIME LENGTH_TIME [OUT_DIR]'
+	exit 1
 fi
 
 if [[ "$4" ]]; then
-    mplayer --nosub --no-autosub --ao=null --ss="$2" --endpos="$3" "$1" \
-    --vo=jpeg:outdir="$4"
+	mpv --no-sub --ao=null --start="$2" --length="$3" "$1" \
+		--vo=image:jpeg-quality=100:outdir="$4"
 else
-    mplayer --nosub --no-autosub --ao=null --ss="$2" --endpos="$3" "$1" \
-    --loop=0
+	mpv --no-sub --ao=null --start="$2" --length="$3" "$1" \
+		--loop=inf
 fi
