@@ -1,2 +1,2 @@
-### bootstrap with ./strapon
-__caution:__ will clobber everything in its way
+### bootstrap with `./strapon`
+**caution:** will clobber everything in its way
