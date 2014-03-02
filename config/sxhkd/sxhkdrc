@@ -1,0 +1,124 @@
+# vim: ft=sxhkdrc
+
+super + {_,shift +} Return
+	{urxvtc,urxvtc -e zsh -c "cd $(xtitle | cut -d : -f2) && zsh"}
+
+super + p
+	dmenu_run
+
+super + o ; {c,i,g,l,s,t}
+	{chromium,inkscape,gimp,libreoffice,skype,transmission-qt}
+
+super + {_,ctrl +} backslash
+	later-{open,add}
+
+super + shift + q
+	bspc window -c
+
+super + t
+	bspc desktop -l next
+
+super + {space,f}
+	bspc window -t {floating,fullscreen}
+
+super + m
+	bspc control --toggle-visibility
+
+super + x
+	bspc window -t locked
+
+super + z
+	bspc window -t private
+
+super + Tab
+	bspc window -f last.local
+
+super + {h,j,k,l}
+	d={left,down,up,right}; \
+	bspc window -f $d || bspc monitor -f $d
+
+super + shift + {h,j,k,l}
+	d={left,down,up,right}; \
+	bspc window $d -w focused.manual || bspc window -w $d.manual || bspc window -s $d || bspc window -m $d -f
+
+super + ctrl + {k,j}
+	bspc window -f {next,prev}
+
+super + ctrl + {l,h}
+	bspc desktop -C {forward,backward}
+
+super + {_,shift +} b
+	[[ $(bspc query -W -w focused) != $(bspc query -W -w biggest) ]] \
+	&& w=biggest || w=last; \
+	bspc window {-f,-s} $w
+
+super + r : {_,shift +} {h,j,k,l}
+	p={+50,-50}; \
+	bspc window -e {left,down,up,right} $p
+
+super + e : {a,s,w,d} ; {a,s,w,d}
+	bspc window -R {left,down,up,right} {270,180,0,90}
+
+super + {_,shift +} u
+	bspc window -f {next,prev}.urgent
+
+super + {_,shift +} c
+	bspc {window -p cancel,desktop -c}
+
+super + {a,s,w,d}
+	bspc window -p {left,down,up,right}
+
+super + ctrl + {a,s,w,d} ; {1-9}
+	bspc window -e {left,down,up,right} 0.{1-9}
+
+super + shift + {d,a}
+	bspc desktop -R {90,270}
+
+super + shift + {w,s}
+	bspc desktop -F {horizontal,vertical}
+
+super + ctrl + {1-9}
+	bspc window -r 0.{1-9}
+
+super + {_,shift +} grave
+	bspc desktop -f {next,prev}.occupied
+
+super + {_,shift +} {1-9}
+	bspc {desktop -f,window -d} ^{1-9}
+
+super + {_,shift +} i
+	bspc {monitor -f,window -m} next
+
+~button1
+	bspc pointer -g focus
+
+super + button{1-3}
+	bspc pointer -g {move,resize_side,resize_corner}
+
+super + !button{1-3}
+	bspc pointer -t %i %i
+
+super + @button{1-3}
+	bspc pointer -u
+
+super + alt + {q,r}
+	{bspc quit 1, \
+	bspc query -T > "$BSPWM_TREE"; bspc query -H > "$BSPWM_HISTORY"; bspc query -S > "$BSPWM_STACK"; bspc quit}
+
+super + Escape
+	i3lock -c 000000 -d
+
+XF86MonBrightness{Down,Up}
+	thor-brightness
+
+XF86Audio{LowerVolume,RaiseVolume,Mute}
+	thor-volume {lower,raise,mute}
+
+Print
+	scrot -q 100 "$SCREENSHOTS/%F-%H%M%S.png"
+
+super + alt + {Next,Home,End}
+	sudo systemctl {suspend,reboot,poweroff}
+
+super + alt + s
+	pkill -USR1 -x sxhkd

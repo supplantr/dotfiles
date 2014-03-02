@@ -1,0 +1,21 @@
+#!/bin/bash
+
+trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
+
+[[ -e "$PANEL_FIFO" ]] && rm "$PANEL_FIFO"
+mkfifo "$PANEL_FIFO"
+
+while ! bspc query -D > /dev/null; do
+	sleep 0.1
+done
+
+bspc config status_prefix 'W'
+bspc config -m focused top_padding 20
+
+bspc control --subscribe > "$PANEL_FIFO" &
+xtitle -sf 'T%s' > "$PANEL_FIFO" &
+battery -sf 'B%s %i' > "$PANEL_FIFO" &
+clock -sf 'C%a %e %l:%M' > "$PANEL_FIFO" &
+volume -sf 'V%s %i' > "$PANEL_FIFO" &
+wifi -sf 'N%i (%s)' > "$PANEL_FIFO" &
+cat "$PANEL_FIFO" | panel-bar | bar

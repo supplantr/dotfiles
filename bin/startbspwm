@@ -1,0 +1,10 @@
+#!/usr/bin/bash
+
+sxhkd &
+bspwm-panel &
+
+while :; do
+	bspwm || break
+done
+
+pkill -x bspwm-panel

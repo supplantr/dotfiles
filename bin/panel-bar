@@ -1,0 +1,79 @@
+#!/usr/bin/bash
+
+wnum() {
+	n=$(bspc query -W -d $1 | wc -l)
+	[[ $n -eq 0 ]] && echo '-' || echo $n
+}
+
+STDIFS=$IFS
+
+while read -r line; do
+	case $line in
+		W*)
+			wm=""
+			IFS=':'
+			set -- ${line#?}
+			while [[ $# -gt 0 ]]; do
+				item=$1
+				name=${item#?}
+				case $item in
+					[OFU]*)
+						wm+=" \\f5$name\\fr"
+						;;
+					o*)
+						wm+=" $name"
+						;;
+					f*)
+						wm+=" \\f1$name\\fr"
+						;;
+					u*)
+						wm+=" \\f0\\b9\\u9$name\\ur\\br\\fr"
+						;;
+					L*)
+						[[ $name =~ ^m ]] && wm+=" \\f4[$(wnum $(bspc query -D -d))]\\fr"
+						;;
+				esac
+				shift
+			done
+			IFS=$STDIFS
+			;;
+		T*)
+			xtitle="${line#?}"
+			;;
+		M*)
+			IFS=';'
+			m=(${line#?})
+			s=${m[0]}
+			if [[ $s =~ ^N ]]; then
+				music=""
+			elif [[ $s =~ ^S ]]; then
+				music=" [stopped] |"
+			else
+				[[ $s =~ ^Pl ]] && music="" || music=""
+				music+=" ${m[1]} - ${m[2]} |"
+			fi
+			IFS=$STDIFS
+			;;
+		V*)
+			v=(${line#?})
+			[[ ${v[0]} == 'On' ]] && vol='' || vol=''
+			vol+=" ${v[1]}"
+			;;
+		N*)
+			n=${line#?}
+			net=" $n"
+			if [[ $n =~ ^0 ]]; then
+				online -w 'enp10s0' > /dev/null && net=' wired' || net=" offline"
+			fi
+			;;
+		B*)
+			b=(${line#?})
+			[[ ${b[0]} =~ ^D ]] && bat='' || bat=''
+			bat+=" ${b[1]}"
+			;;
+		C*)
+			clock=" ${line#?}"
+			;;
+	esac
+	printf "%s\n" "$wm \\c$xtitle \\r$music $vol | $net | $bat | $clock "
+done
