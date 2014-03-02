@@ -1,0 +1,5 @@
+! vim: ft=xdefaults
+
+URxvt.termName:        rxvt-unicode-256color
+URxvt.scrollBar:       false
+URxvt.urgentOnBell:    true

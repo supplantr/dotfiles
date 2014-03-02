@@ -1,5 +1,3 @@
-#include "/home/james/.x11/fonts/Xresources.terminus"
-
-#include "/home/james/.x11/colors/Xresources.hybrid"
-
-#include "/home/james/.x11/apps/Xresources.urxvt"
+#include "/home/james/.xresources/fonts/termsyn"
+#include "/home/james/.xresources/colors/hydra"
+#include "/home/james/.xresources/apps/urxvt"
