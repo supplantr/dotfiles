@@ -1,0 +1,30 @@
+#!/usr/bin/bash
+
+case $1 in
+	raise)
+		val='2+ on'
+		;;
+	lower)
+		val='2- on'
+		;;
+	mute)
+		onoff=$(amixer sget Master | sed -n 's/.*\[\(on\|off\)\].*/\1/p')
+		if [[ "$onoff" == "on" ]]; then
+			amixer -q sset Master off
+			pkill -USR1 -x volume
+			thor-cli --no-bar -i "$HOME/.icons/NotificaThor/volume-muted.png"
+			exit 0
+		else
+			val='on'
+		fi
+		;;
+	*)
+		exit 1
+		;;
+esac
+
+percent=$(amixer sset Master $val | sed -n 's/.*\[\([0-9]*\)%\].*/\1/p')
+
+pkill -USR1 -x volume
+
+thor-cli -b "$percent/100" -i "$HOME/.icons/NotificaThor/volume.png"

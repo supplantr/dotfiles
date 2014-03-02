@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+
+max_brightness=$(cat /sys/class/backlight/acpi_video1/max_brightness)
+brightness=$(cat /sys/class/backlight/acpi_video1/brightness)
+
+thor-cli -b "$brightness/$max_brightness" -i "$HOME/.icons/NotificaThor/brightness.png"

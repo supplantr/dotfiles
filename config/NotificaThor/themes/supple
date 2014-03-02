@@ -1,0 +1,39 @@
+pad_to_border_x: 25;
+pad_to_border_y: 25;
+
+BACKGROUND
+{
+	color: #80373B41;
+	radius_topleft:     40;
+	radius_topright:    40;
+	radius_bottomleft:  40;
+	radius_bottomright: 40;
+}
+
+IMAGE
+{
+	width:  120;
+	height: 120;
+	picture {
+		png {}
+	}
+}
+
+BAR
+{
+	width:  180;
+	height: 10;
+	empty {
+		radius_topleft:     5;
+		radius_topright:    5;
+		radius_bottomleft:  5;
+		radius_bottomright: 5;
+	}
+	full {
+		color: #ffffff;
+		radius_topleft:     5;
+		radius_topright:    5;
+		radius_bottomleft:  5;
+		radius_bottomright: 5;
+	}
+}
