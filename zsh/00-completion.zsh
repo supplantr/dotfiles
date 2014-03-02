@@ -1,7 +1,6 @@
-[[ "$TERM" == 'dumb' ]] && return 1
-
 autoload -U compinit && compinit -i
 
+unsetopt correct_all
 unsetopt menu_complete
 unsetopt flowcontrol
 unsetopt case_glob
@@ -11,7 +10,6 @@ setopt complete_in_word
 setopt always_to_end
 setopt path_dirs
 setopt auto_param_slash
-
 setopt complete_aliases
 
 zstyle ':completion::complete:*' use-cache on
@@ -52,3 +50,10 @@ zstyle ':completion:*:history-words' stop yes
 zstyle ':completion:*:history-words' remove-all-dups yes
 zstyle ':completion:*:history-words' list false
 zstyle ':completion:*:history-words' menu yes
+
+_completemarks() {
+	reply=($(ls $MARKPATH))
+}
+
+compctl -K _completemarks jj
+compctl -K _completemarks unmark
