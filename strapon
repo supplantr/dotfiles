@@ -54,7 +54,7 @@ sub rm_if {
 opendir DIR, $work_dir or die "could not open $work_dir: $!\n";
 for my $file (readdir DIR) {
 	# note: only ignores .files in top-level dir
-	next if ($file =~ /($self|^\.|README.md)/);
+	next if ($file =~ /($self|etc|^\.|README.md)/);
 	-d $file
 		? find(\&go_deep, $file)
 		: &link("$work_dir/$file", "$home_dir/.$file");
