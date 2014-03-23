@@ -11,35 +11,6 @@ my $work_dir = cwd();
 my $home_dir = Cwd::realpath('..');
 my $self = basename($0);
 
-sub go_deep {
-	my $rel_path = $File::Find::name;
-	my $dir_path = "$home_dir/.$rel_path";
-	if (-d $_) {
-		# symlink dirs ending in .git, removing .git from symlink name
-		# note: doesn't operate on top-level dirs
-		if ($_ =~ /\.git$/) {
-			my $new_path = dirname($dir_path);
-			my $new_base = substr $_, 0, length($_) - 4;
-			&link("$work_dir/$rel_path", "$new_path/$new_base");
-			# go no deeper in current dir
-			$File::Find::prune = 1;
-		}
-		elsif (! -d $dir_path) {
-			&rm_if($dir_path);
-			mkdir $dir_path or die "could not make $dir_path: $!\n";
-		}
-	}
-	else {
-		&link("$work_dir/$rel_path", $dir_path);
-	}
-}
-
-sub link {
-	my ($old, $new) = @_;
-	&rm_if($new);
-	symlink $old, $new or die "could not symlink $old to $new: $!\n";
-}
-
 sub rm_if {
 	my $file = $_[0];
 	my $err = "could not remove conflicting $file: $!\n";
@@ -51,12 +22,41 @@ sub rm_if {
 	}
 }
 
+sub lns {
+	my ($old, $new) = @_;
+	rm_if($new);
+	symlink $old, $new or die "could not symlink $old to $new: $!\n";
+}
+
+sub go_deep {
+	my $rel_path = $File::Find::name;
+	my $dir_path = "$home_dir/.$rel_path";
+	if (-d $_) {
+		# symlink dirs ending in .git, removing .git from symlink name
+		# note: doesn't operate on top-level dirs
+		if ($_ =~ /\.git$/) {
+			my $new_path = dirname($dir_path);
+			my $new_base = substr $_, 0, length($_) - 4;
+			lns("$work_dir/$rel_path", "$new_path/$new_base");
+			# go no deeper in current dir
+			$File::Find::prune = 1;
+		}
+		elsif (! -d $dir_path) {
+			rm_if($dir_path);
+			mkdir $dir_path or die "could not make $dir_path: $!\n";
+		}
+	}
+	else {
+		lns("$work_dir/$rel_path", $dir_path);
+	}
+}
+
 opendir DIR, $work_dir or die "could not open $work_dir: $!\n";
 for my $file (readdir DIR) {
 	# note: only ignores .files in top-level dir
 	next if ($file =~ /($self|etc|^\.|README.md)/);
 	-d $file
-		? find(\&go_deep, $file)
-		: &link("$work_dir/$file", "$home_dir/.$file");
+		? find(\&go_deep, $file) # \& is required
+		: lns("$work_dir/$file", "$home_dir/.$file");
 }
 closedir DIR;
