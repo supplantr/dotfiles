@@ -3,9 +3,10 @@
 @^steam:                 = steam
 image/                   = sxiv
 video/                   = mplayer
-audio/                   = mpv?:st
+audio/                   = mplayer?:urxvtc
 text/html                = $BROWSER
-text/                    = $EDITOR?:st
+text/                    = $EDITOR?:urxvtc
 application/pdf          = zathura
-inode/directory          = ranger?:st
+inode/directory          = ranger?:urxvtc
 application/x-bittorrent = transmission-qt
+application/x-love-game  = love
