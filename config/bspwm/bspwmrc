@@ -1,30 +1,31 @@
-#!/usr/bin/bash
+#!/usr/bin/zsh
 
-bspc monitor -d $(seq 1 9)
+source "${0:h}/colors"
 
-bspc desktop ^1 -l monocle
-
-bspc config focused_border_color         '#5F819D'
-bspc config focused_locked_border_color  '#5E8D87'
-bspc config focused_private_border_color '#85678F'
-bspc config active_border_color          '#8D8F8D'
-bspc config active_locked_border_color   '#8D8F8D'
-bspc config active_private_border_color  '#8D8F8D'
-bspc config normal_border_color          '#282A2E'
-bspc config normal_locked_border_color   '#282A2E'
-bspc config normal_private_border_color  '#282A2E'
-bspc config presel_border_color          '#DE935F'
-bspc config urgent_border_color          '#A54242'
+bspc config focused_border_color         "#$BLUE"
+bspc config focused_locked_border_color  "#$CYAN"
+bspc config focused_private_border_color "#$MAGENTA"
+bspc config active_border_color          "#$WHITE"
+bspc config active_locked_border_color   "#$WHITE"
+bspc config active_private_border_color  "#$WHITE"
+bspc config normal_border_color          "#$BLACK"
+bspc config normal_locked_border_color   "#$BLACK"
+bspc config normal_private_border_color  "#$BLACK"
+bspc config presel_border_color          "#$ORANGE"
+bspc config urgent_border_color          "#$RED"
 
 bspc config gapless_monocle     true
 bspc config borderless_monocle  true
 bspc config auto_alternate      true
 bspc config history_aware_focus true
 bspc config auto_cancel         true
-#bspc config ignore_ewmh_focus   true
 
 bspc config border_width 4
 bspc config window_gap   6
+
+bspc monitor -d $(seq 1 9)
+
+bspc desktop ^1 -l monocle
 
 if [[ -e "$BSPWM_TREE" ]]; then
 	bspc restore -T "$BSPWM_TREE"
@@ -43,7 +44,6 @@ if [[ -e "$BSPWM_STACK" ]]; then
 	rm "$BSPWM_STACK"
 fi
 
-bspc rule -a BSPWM_FRAME frame=on
 bspc rule -a lxappearance floating=on
 bspc rule -a xfontsel floating=on
 bspc rule -a Steam floating=on
