@@ -7,6 +7,9 @@ case $1 in
 	lower)
 		val='2- on'
 		;;
+	reset)
+		val='50%'
+		;;
 	mute)
 		onoff=$(amixer sget Master | sed -n 's/.*\[\(on\|off\)\].*/\1/p')
 		if [[ "$onoff" == "on" ]]; then

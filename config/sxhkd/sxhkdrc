@@ -6,8 +6,8 @@ super + {_,shift +} Return
 super + p
 	dmenu_run
 
-super + o ; {c,i,g,l,s,t}
-	{chromium,inkscape,gimp,libreoffice,skype,transmission-qt}
+super + o ; {c,f,i,g,l,s,t}
+	{chromium,firefox,inkscape,gimp,libreoffice,skype,transmission-qt}
 
 super + {_,ctrl +} backslash
 	later-{open,add}
@@ -113,6 +113,9 @@ XF86MonBrightness{Down,Up}
 
 XF86Audio{LowerVolume,RaiseVolume,Mute}
 	thor-volume {lower,raise,mute}
+
+ctrl + XF86AudioLowerVolume
+	thor-volume reset
 
 Print
 	scrot -q 100 "$SCREENSHOTS/%F-%H%M%S.png"
