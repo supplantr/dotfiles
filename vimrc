@@ -13,11 +13,12 @@ NeoBundle 'Shougo/vimproc', {
 			\ }
 			\ }
 
-NeoBundle 'benmills/vim-golang-alternate'
+NeoBundle 'fatih/vim-go'
+NeoBundle 'gcmt/wildfire.vim'
 NeoBundle 'bling/vim-airline'
 NeoBundle 'mhinz/vim-startify'
-NeoBundle 'kshenoy/vim-signature'
 NeoBundle 'mhinz/vim-signify'
+NeoBundle 'kshenoy/vim-signature'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'scrooloose/syntastic'
@@ -27,6 +28,7 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'mbbill/undotree'
 NeoBundle 'baskerville/vim-sxhkdrc'
+NeoBundle 'plasticboy/vim-markdown'
 
 filetype plugin indent on
 
@@ -45,6 +47,8 @@ set directory=~/.vim/tmp
 set background=dark
 let g:hydra_use_colorspace = 1
 colorscheme hydra
+
+let g:airline_theme='hybrid'
 
 " ---------------
 " UI
