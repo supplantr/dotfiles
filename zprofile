@@ -1,6 +1,6 @@
 export GOPATH="$HOME/code/go"
 export PATH="$HOME/.bin:$GOPATH/bin:$PATH"
-export LD_LIBRARY_PATH="/usr/lib/jvm/java-7-openjdk/jre/lib/amd64:$LD_LIBRARY_PATH"
+#export LD_LIBRARY_PATH="/usr/lib/jvm/java-7-openjdk/jre/lib/amd64:$LD_LIBRARY_PATH"
 
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
